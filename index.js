@@ -1,2 +1,2 @@
-const hiThere  = "hi";
-console.log(hiTh ere)
+const hiThere = "hi";
+console.log(hiThere);
