@@ -1,6 +1,6 @@
 # Puppy Love
 
-    - Pet Finder API to pull pictures, personality traits/bio, specs (maybe size, weight, energy level, life expectancy)
+    - https://dog.ceo/dog-api/documentation/random API to pull pictures, personality traits/bio, specs (maybe size, weight, energy level, life expectancy)
 
         - user create account with user name, password, select pet preferences (drop down menues from Pet Finder API fed table)
 
