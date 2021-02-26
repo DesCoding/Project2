@@ -1,15 +1,15 @@
 {
   "development": {
     "username": "root",
-    "password": "yoshi",
-    "database": "passport_demo",
+    "password": "hyram33!",
+    "database": "puppylovedb",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
     "password": "yoshi",
-    "database": "database_test",
+    "database": "puppylovedb",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

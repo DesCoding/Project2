@@ -4,4 +4,7 @@ $(document).ready(() => {
   $.get("/api/user_data").then(data => {
     $(".member-name").text(data.email);
   });
+  $.get("https://dog.ceo/api/breeds/image/random").then(data => {
+    console.log(data);
+  });
 });
