@@ -50,4 +50,17 @@ module.exports = function(app) {
       });
     }
   });
+  // Route for creating the swipe
+  app.post("/api/createswipe", (req, res) => {
+    db.Swipe.create({
+      answer: req.body.answer,
+      imageURL: req.body.imageURL
+    })
+      .then(() => {
+        // res.redirect(307, "/api/login");
+      })
+      .catch(err => {
+        res.status(401).json(err);
+      });
+  });
 };
