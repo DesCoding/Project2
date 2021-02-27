@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="stylesheets/style.css" />
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
         <title>Puppy Love</title>
     </head>
@@ -23,50 +24,21 @@
                 </div>
                 <div class="menu">
                     <ul>
-                        <li>Matches</li>
-                        <li class="active">Posts</li>
+                        <li class="active">Matches</li>
                     </ul>
                 </div>
-                <div class="messages">
-                    <div class="avatar">
-                        <img src="https://images.dog.ceo/breeds/dhole/n02115913_3527.jpg" alt="Random Dog 2">
-                    </div>
-                    <div class="friend">
-                        <div class="user">Puppy Enthusiast</div>
-                        <div class="text">Interested In Puppy Love</div>
-                    </div>
-                </div>
 
-                <div class="messages">
-                    <div class="avatar">
-                        <img src="https://images.dog.ceo/breeds/poodle-miniature/n02113712_612.jpg" alt="Random Dog 3">
-                    </div>
-                    <div class="friend">
-                        <div class="user">Dog Whisperer</div>
-                        <div class="text">Waiting for My Puppy</div>
-                    </div>
-                </div>
-
-                <div class="messages">
-                    <div class="avatar">
-                        <img src="https://images.dog.ceo/breeds/terrier-wheaten/n02098105_2458.jpg" alt="Random Dog 4">
-                    </div>
-                    <div class="friend">
-                        <div class="user">Pet Mom</div>
-                        <div class="text">Anxious to Adopt</div>
-                    </div>
-                </div>
             </div>
             <div class="content">
                 <div class="card">
                     <div class="user">
-                        <img id="swipe" src="https://images.dog.ceo/breeds/frise-bichon/jh-ezio-2.jpg" alt="Random Dog 4">
+                        <img id="swipe" src="" alt="Random Dog">
                         <div class="profile">
-                            <div class="name">Ruffus <span>20</span></div>
-                            <div class="local">
+                            <!-- <div class="name">Ruffus <span>20</span></div> -->
+                            <!-- <div class="local">
                                 <i class="fa fa-map-marker alt"></i>
-                                <span>Looking for Puppy Love</span>
-                            </div>
+                                <span>Looking for Puppy Love</span> -->
+                            <!-- </div> -->
                         </div>
                     </div>
                 </div>
@@ -86,10 +58,57 @@
     </body>
 <script src="js/hammer.js"></script>
 <script>
+   function loadMatches (){
+    $.get("/api/loadMatches").then(data => {
+    console.log(data, "matches");   
+    data.forEach((match)=>{
+    let message = `<div class="messages">
+                    <div class="avatar">
+                        <img src="${ match.imageURL }" alt="Random Dog 3">
+                    </div>
+                    <div class="friend">
+                        <div class="user">Dog Whisperer</div>
+                        <div class="text">Waiting for My Puppy</div>
+                    </div>
+                </div>`
+         $("div.side").append(message);       
+         console.log(message);
+    })
+    }); 
+   }
+
+   function getDog (){
+    $.get("https://dog.ceo/api/breeds/image/random").then(data => {
+    console.log(data.message);   
+    const dogImage = (data.message)
+    $("#swipe").attr("src",dogImage)
+  });
+ }
     var swipe = document.getElementById('swipe'); 
     var hammertime = new Hammer(swipe);
-hammertime.on('swipe', function(ev) {
+hammertime.on('swipeleft', function(ev) {
+    console.log("swipeleft")
 	console.log(ev);
+    const answer = false;
+    const url = ev.target.getAttribute("src")
+    $.post("/api/createswipe", {answer, imageURL: url}, function(){
+        console.log("success")
+    })
+    getDog();
+});
+hammertime.on('swiperight', function(ev) {
+	console.log(ev);
+    console.log(ev.target.getAttribute("src"))
+    const answer = true;
+    const url = ev.target.getAttribute("src")
+    $.post("/api/createswipe", {answer, imageURL: url}, function(){
+        console.log("success")
+    })
+    getDog();
+    loadMatches();
 });
 </script>
 </html>
+<!-- modify get dog call to get data from api to replace image 
+need to pull trues from database to see saved pups
+-->
