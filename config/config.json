@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "hyram33!",
+    "password": "yoshi",
     "database": "puppylovedb",
     "host": "127.0.0.1",
     "dialect": "mysql"
