@@ -99,12 +99,19 @@ body {
   position: relative;
   height: 450px;
 }
+
+img#swipe {
+  display: block;
+  width: 100%;
+}
+
 .content .card .user  {
   width: 380px;
   height: 450px;
   object-fit: cover;
   border-radius: 10px;
   box-shadow: 0 1px 10px 0 rgba(0, 20, 20, 0.5);
+  overflow: hidden;
 }
 .content .card .user .profile {
   position: absolute;

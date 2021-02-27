@@ -40,6 +40,7 @@ Project requirements:
     - care instructions for each breed
     - users able to change preferences after initial setting
     - hammer.js
+    - posts from users
 
 
 
