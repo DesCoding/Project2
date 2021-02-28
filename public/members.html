@@ -1,35 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <title>Passport Authentication</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
-  <link href="stylesheets/style.css" rel="stylesheet">
-</head>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css"/>
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+        <link rel="stylesheet" href="stylesheets/style.css" />
+        <title>Puppy Love</title>
+    </head>
 
-<body>
-  <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/logout">
-        Logout
-      </a>
-    </div>
-  </div>
-</nav>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <h2>Welcome <span class="member-name"></span></h2>
-      </div>
-    </div>
-  </div>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <a class="navbar-brand" href="/logout">
+                  Logout
+                </a>
+              </div>
+            </div>
+          </nav>
+        <div class="container">
+            <div class="side">
+                <div class="header">
+                    <div class="avatar">
+                        <img src="https://images.dog.ceo/breeds/malamute/n02110063_2390.jpg" alt="Random Dogs">
+                    </div>
+                    <div class="title">Puppy Love</div>
+                </div>
+                <div class="menu">
+                    <ul>
+                        <li class="active">Matches</li>
+                    </ul>
+                </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="js/members.js"></script>
+            </div>
+            <div class="content">
+                <div class="card">
+                    <div class="user">
+                        <img id="swipe" src="" alt="Random Dog">
+                        <div class="profile">
+                            <!-- <div class="name">Ruffus <span>20</span></div> -->
+                            <!-- <div class="local">
+                                <i class="fa fa-map-marker alt"></i>
+                                <span>Looking for Puppy Love</span> -->
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="buttons">
+                    <div class="no">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <div class="star">
+                        <i class="fas fa-star fa"></i>
+                    </div>
+                    <div class="heart">
+                        <i class="fas fa-heart"></i> -->
+                    </div>
+                </div>
+            </div>
+        </div>
 
-</body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="js/members.js"></script>  
 
+    </body>
+<script src="js/hammer.js"></script>
+<script>
+   function loadMatches (){
+    $.get("/api/loadMatches").then(data => {
+    console.log(data, "matches");   
+    $("div.side").children(".messages").remove();  
+    data.forEach((match)=>{
+    let message = `<div class="messages">
+                    <div class="avatar">
+                        <img src="${ match.imageURL }" alt="Random Dog 3">
+                    </div>
+                    </div>`
+         $("div.side").append(message);       
+         console.log(message);
+    })
+    }); 
+   }
+
+   function getDog (){
+    $.get("https://dog.ceo/api/breeds/image/random").then(data => {
+    console.log(data.message);   
+    const dogImage = (data.message)
+    $("#swipe").attr("src",dogImage)
+  });
+ }
+    var swipe = document.getElementById('swipe'); 
+    var hammertime = new Hammer(swipe);
+hammertime.on('swipeleft', function(ev) {
+    console.log("swipeleft")
+	console.log(ev);
+    const answer = false;
+    const url = ev.target.getAttribute("src")
+    $.post("/api/createswipe", {answer, imageURL: url}, function(){
+        console.log("success")
+    })
+    getDog();
+});
+hammertime.on('swiperight', function(ev) {
+	console.log(ev);
+    console.log(ev.target.getAttribute("src"))
+    const answer = true;
+    const url = ev.target.getAttribute("src")
+    $.post("/api/createswipe", {answer, imageURL: url}, function(){
+        console.log("success")    
+        getDog();
+        loadMatches();
+    })
+});
+    $(document).ready(function(){
+        getDog();
+        loadMatches();
+    })
+</script>
 </html>

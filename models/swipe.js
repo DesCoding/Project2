@@ -2,7 +2,8 @@
 module.exports = function(sequelize, DataTypes) {
   const Swipe = sequelize.define("Swipe", {
     answer: DataTypes.BOOLEAN,
-    imageURL: DataTypes.STRING
+    imageURL: DataTypes.STRING,
+    userEmail: DataTypes.STRING
   });
   return Swipe;
 };

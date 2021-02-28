@@ -20,6 +20,7 @@ body {
   height: 100%;
   min-height: 100vh;
   border-right: 1px solid #e1e1e1;
+  overflow-y: scroll;
 }
 .side .header {
   background: linear-gradient(262deg, #ff7854, #fd267d );
@@ -179,4 +180,7 @@ content .buttons .star i {
 .content .buttons .star {
   width: 60px;
   height: 60px;
+}
+.navbar {
+  background: linear-gradient(262deg, #ff7854, #fd267d );
 }
