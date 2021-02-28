@@ -1,6 +1,7 @@
 // Requiring our models and passport as we've configured it
 const db = require("../models");
 const passport = require("../config/passport");
+const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -10,7 +11,7 @@ module.exports = function(app) {
     // Sending back a password, even a hashed password, isn't a good idea
     res.json({
       email: req.user.email,
-      id: req.user.id,
+      id: req.user.id
     });
   });
 
@@ -20,12 +21,12 @@ module.exports = function(app) {
   app.post("/api/signup", (req, res) => {
     db.User.create({
       email: req.body.email,
-      password: req.body.password,
+      password: req.body.password
     })
       .then(() => {
         res.redirect(307, "/api/login");
       })
-      .catch((err) => {
+      .catch(err => {
         res.status(401).json(err);
       });
   });
@@ -45,27 +46,30 @@ module.exports = function(app) {
       // Sending back a password, even a hashed password, isn't a good idea
       res.json({
         email: req.user.email,
-        id: req.user.id,
+        id: req.user.id
       });
     }
   });
   // Route for creating the swipe
-  app.post("/api/createswipe", (req, res) => {
+  app.post("/api/createswipe", isAuthenticated, (req, res) => {
+    console.log(req.user);
     db.Swipe.create({
       answer: req.body.answer,
       imageURL: req.body.imageURL,
+      userEmail: req.user.email
     })
-      .then(() => {
+      .then(data => {
         // res.redirect(307, "/api/login");
+        res.json(data);
       })
-      .catch((err) => {
+      .catch(err => {
         res.status(401).json(err);
       });
   });
-  app.get("/api/loadMatches", (req, res) => {
+  app.get("/api/loadMatches", isAuthenticated, (req, res) => {
     db.Swipe.findAll({
-      where: { answer: true },
-    }).then((data) => {
+      where: { answer: true, userEmail: req.user.email }
+    }).then(data => {
       res.json(data);
     });
   });
