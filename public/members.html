@@ -42,8 +42,10 @@
             <div class="content">
                 <div class="card">
                     <div class="user">
-                        <img id="swipe" src="" alt="Random Dog">
+                        <img id="swipe" class="picSize" src="" alt="Random Dog">
                         <div class="profile">
+                            Swipe right to save.<br/>
+                            Swipe left to see a new pup.
                             <!-- <div class="name">Ruffus <span>20</span></div> -->
                             <!-- <div class="local">
                                 <i class="fa fa-map-marker alt"></i>
@@ -79,7 +81,7 @@
     data.forEach((match)=>{
     let message = `<div class="messages">
                     <div class="avatar">
-                        <img src="${ match.imageURL }" alt="Random Dog 3">
+                        <img class="picSize" src="${ match.imageURL }" alt="Random Dog 3">
                     </div>
                     </div>`
          $("div.side").append(message);       
