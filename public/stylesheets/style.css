@@ -106,7 +106,7 @@ img#swipe {
   width: 100%;
 }
 
-.content .card .user  {
+.content .card .user {
   width: 380px;
   height: 450px;
   object-fit: cover;
@@ -114,6 +114,7 @@ img#swipe {
   box-shadow: 0 1px 10px 0 rgba(0, 20, 20, 0.5);
   overflow: hidden;
 }
+
 .content .card .user .profile {
   position: absolute;
   bottom: 0px;
@@ -183,4 +184,13 @@ content .buttons .star i {
 }
 .navbar {
   background: linear-gradient(262deg, #ff7854, #fd267d );
+}
+
+.profile {
+  font-size: 25px;
+  text-align: center;
+}
+
+.picSize {
+  height: 350px;
 }
