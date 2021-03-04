@@ -28,12 +28,14 @@
     * Hammer.js (new technology)
 
 # Deployment
+
 [GitHub Repo](https://github.com/DesCoding/PuppyLove)
 
 [Heroku Deployed Link](https://morning-escarpment-54756.herokuapp.com/)
 
 # Demo
-![Demo]()
+
+![Demo](assets/MemberPage.png)
 
 # MIT License
 
