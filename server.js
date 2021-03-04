@@ -13,7 +13,7 @@ if (process.env.JAWDB_URL) {
   connection = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "yoshi",
+    password: "W@rmVa3i11a",
     database: "puppylovedb"
   });
 }
