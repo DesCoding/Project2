@@ -8,24 +8,24 @@ $(document).ready(() => {
   signUpForm.on("submit", event => {
     event.preventDefault();
     const userData = {
-      email: emailInput.val().trim(),
+      userName: emailInput.val().trim(),
       password: passwordInput.val().trim()
     };
 
-    if (!userData.email || !userData.password) {
+    if (!userData.userName || !userData.password) {
       return;
     }
     // If we have an email and password, run the signUpUser function
-    signUpUser(userData.email, userData.password);
+    signUpUser(userData.userName, userData.password);
     emailInput.val("");
     passwordInput.val("");
   });
 
   // Does a post to the signup route. If successful, we are redirected to the members page
   // Otherwise we log any errors
-  function signUpUser(email, password) {
+  function signUpUser(userName, password) {
     $.post("/api/signup", {
-      email: email,
+      userName: userName,
       password: password
     })
       .then(() => {
@@ -36,6 +36,7 @@ $(document).ready(() => {
   }
 
   function handleLoginErr(err) {
+    console.log(err);
     $("#alert .msg").text(err.responseJSON);
     $("#alert").fadeIn(500);
   }
