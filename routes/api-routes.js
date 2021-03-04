@@ -10,7 +10,7 @@ module.exports = function(app) {
   app.post("/api/login", passport.authenticate("local"), (req, res) => {
     // Sending back a password, even a hashed password, isn't a good idea
     res.json({
-      email: req.user.email,
+      userName: req.user.userName,
       id: req.user.id
     });
   });
@@ -20,13 +20,14 @@ module.exports = function(app) {
   // otherwise send back an error
   app.post("/api/signup", (req, res) => {
     db.User.create({
-      email: req.body.email,
+      userName: req.body.userName,
       password: req.body.password
     })
       .then(() => {
         res.redirect(307, "/api/login");
       })
       .catch(err => {
+        console.log(err);
         res.status(401).json(err);
       });
   });
@@ -36,27 +37,13 @@ module.exports = function(app) {
     res.redirect("/");
   });
 
-  // Route for getting some data about our user to be used client side
-  app.get("/api/user_data", (req, res) => {
-    if (!req.user) {
-      // The user is not logged in, send back an empty object
-      res.json({});
-    } else {
-      // Otherwise send back the user's email and id
-      // Sending back a password, even a hashed password, isn't a good idea
-      res.json({
-        email: req.user.email,
-        id: req.user.id
-      });
-    }
-  });
   // Route for creating the swipe
   app.post("/api/createswipe", isAuthenticated, (req, res) => {
     console.log(req.user);
     db.Swipe.create({
       answer: req.body.answer,
       imageURL: req.body.imageURL,
-      userEmail: req.user.email
+      userName: req.user.userName
     })
       .then(data => {
         // res.redirect(307, "/api/login");
@@ -68,7 +55,7 @@ module.exports = function(app) {
   });
   app.get("/api/loadMatches", isAuthenticated, (req, res) => {
     db.Swipe.findAll({
-      where: { answer: true, userEmail: req.user.email }
+      where: { answer: true, userName: req.user.userName }
     }).then(data => {
       res.json(data);
     });
