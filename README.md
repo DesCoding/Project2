@@ -1,5 +1,5 @@
 # Description Project 2 - Puppy Love
- As a group of paw loving people, we thought "what better way to join two of peoples favorite pastimes: looking at pictures of furry friends and swiping"!  Whether you are trying to determine what types of dogs you would be interested in adding to your family or just want to relax by looking through dog photos, this app is for you! With our App you can swipe right to save the image and left to not. You never have to worry about rejection like SOME OTHER apps, these furry friends love everyone!
+ As a group of paw loving people, we thought "what better way to join two of peoples favorite pastimes: looking at pictures of furry friends and swiping"!  Whether you are trying to determine what types of dogs you would be interested in adding to your family or just want to relax by looking through dog photos, this app is for you! With our App you can swipe right to save the image and left to not. You never have to worry about rejection like SOME OTHER apps, these furry friends love everyone!  On first sign in, create a user name (must be one word) and password.  Your account will be created and Puppy Love is just a swipe away.
 
     Application features:
 	* Uses Node and Express server
