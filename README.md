@@ -31,7 +31,7 @@
 
 [GitHub Repo](https://github.com/DesCoding/PuppyLove)
 
-[Heroku Deployed Link](https://morning-escarpment-54756.herokuapp.com/)
+[Heroku Deployed Link](https://puppy-love.herokuapp.com/)
 
 # Demo
 
